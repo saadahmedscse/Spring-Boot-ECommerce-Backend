@@ -15,9 +15,12 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthRepository authRepository;
 
+    @Autowired
+    private ValidatorUtil validatorUtil;
+
     @Override
     public ResponseEntity<?> createAccount(SignUpRequest signUpRequest) {
-        ResponseEntity<?> validationResult = ValidatorUtil.isSignUpRequestValid(signUpRequest);
+        ResponseEntity<?> validationResult = validatorUtil.isSignUpRequestValid(signUpRequest);
 
         if (validationResult.getStatusCode().isSameCodeAs(HttpStatus.CREATED)) {
             User user = User.builder()
