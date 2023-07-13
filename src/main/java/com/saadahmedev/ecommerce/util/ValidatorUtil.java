@@ -3,18 +3,16 @@ package com.saadahmedev.ecommerce.util;
 import com.saadahmedev.ecommerce.dto.auth.SignUpRequest;
 import com.saadahmedev.ecommerce.dto.common.ApiResponse;
 import com.saadahmedev.ecommerce.repository.auth.AuthRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class ValidatorUtil {
 
     @Autowired
-    private final AuthRepository authRepository;
+    private AuthRepository authRepository;
 
     public ResponseEntity<?> isSignUpRequestValid(SignUpRequest req) {
         if (req.getFirstName() == null) {
