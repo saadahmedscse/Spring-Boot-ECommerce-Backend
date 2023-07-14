@@ -1,5 +1,6 @@
 package com.saadahmedev.ecommerce.util;
 
+import com.saadahmedev.ecommerce.dto.auth.LoginRequest;
 import com.saadahmedev.ecommerce.dto.auth.SignUpRequest;
 import com.saadahmedev.ecommerce.dto.common.ApiResponse;
 import com.saadahmedev.ecommerce.repository.auth.AuthRepository;
@@ -48,5 +49,16 @@ public class ValidatorUtil {
 
     private ResponseEntity<?> createErrorResponse(String message) {
         return new ResponseEntity<>(new ApiResponse(false, message), HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<?> isLoginRequestValid(LoginRequest req) {
+        if (req.getEmail() == null) {
+            return createErrorResponse("Email is required");
+        }
+        if (req.getPassword() == null) {
+            return createErrorResponse("Password is required");
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
