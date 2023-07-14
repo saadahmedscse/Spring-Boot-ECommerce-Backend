@@ -1,7 +1,7 @@
 package com.saadahmedev.ecommerce.controller.auth;
 
+import com.saadahmedev.ecommerce.dto.auth.LoginRequest;
 import com.saadahmedev.ecommerce.dto.auth.SignUpRequest;
-import com.saadahmedev.ecommerce.dto.common.ApiResponse;
 import com.saadahmedev.ecommerce.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +19,10 @@ public class AuthController {
     @PostMapping("/sign-up")
     public ResponseEntity<?> createAccount(SignUpRequest signUpRequest) {
         return authService.createAccount(signUpRequest);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(LoginRequest loginRequest) {
+        return authService.login(loginRequest);
     }
 }
