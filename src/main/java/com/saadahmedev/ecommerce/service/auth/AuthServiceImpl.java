@@ -3,8 +3,10 @@ package com.saadahmedev.ecommerce.service.auth;
 import com.saadahmedev.ecommerce.dto.auth.LoginRequest;
 import com.saadahmedev.ecommerce.dto.auth.LoginResponse;
 import com.saadahmedev.ecommerce.dto.auth.SignUpRequest;
+import com.saadahmedev.ecommerce.entity.TokenData;
 import com.saadahmedev.ecommerce.entity.User;
 import com.saadahmedev.ecommerce.repository.auth.AuthRepository;
+import com.saadahmedev.ecommerce.repository.auth.TokenRepository;
 import com.saadahmedev.ecommerce.service.jwt.UserDetailsServiceImpl;
 import com.saadahmedev.ecommerce.util.JwtUtil;
 import com.saadahmedev.ecommerce.util.ValidatorUtil;
@@ -22,6 +24,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private AuthRepository authRepository;
+
+    @Autowired
+    private TokenRepository tokenRepository;
 
     @Autowired
     private ValidatorUtil validatorUtil;
@@ -75,8 +80,16 @@ public class AuthServiceImpl implements AuthService {
                     "Logged in successfully",
                     jwt
             ), HttpStatus.OK);
+
+            //Save token to database;
+            saveToken(new TokenData(loginRequest.getEmail(), jwt));
         }
 
         return validationResult;
+    }
+
+    @Override
+    public void saveToken(TokenData tokenData) {
+        tokenRepository.save(tokenData);
     }
 }
