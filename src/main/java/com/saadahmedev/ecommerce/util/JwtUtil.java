@@ -1,21 +1,24 @@
 package com.saadahmedev.ecommerce.util;
 
+import com.saadahmedev.ecommerce.entity.TokenData;
+import com.saadahmedev.ecommerce.repository.auth.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Component
 public class JwtUtil {
+
+    @Autowired
+    private TokenRepository tokenRepository;
 
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
@@ -56,7 +59,8 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        Optional<TokenData> tokenData = tokenRepository.findById(username);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token) && tokenData.isPresent() && tokenData.get().getToken().equals(token));
     }
 
     private Key getSigningKey() {
