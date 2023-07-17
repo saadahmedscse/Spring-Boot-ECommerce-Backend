@@ -16,6 +16,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TokenData {
     @Id
-    private String id;
     private String token;
 }
