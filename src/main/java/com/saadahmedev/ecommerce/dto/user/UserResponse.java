@@ -1,8 +1,10 @@
 package com.saadahmedev.ecommerce.dto.user;
 
 import lombok.Builder;
+import lombok.Data;
 
 @Builder
+@Data
 public class UserResponse {
     private long id;
     private String firstName;
