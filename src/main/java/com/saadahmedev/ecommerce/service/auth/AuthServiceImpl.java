@@ -68,13 +68,13 @@ public class AuthServiceImpl implements AuthService {
     public ResponseEntity<?> login(LoginRequest loginRequest) {
         ResponseEntity<?> validationResult = validatorUtil.isLoginRequestValid(loginRequest);
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
-
-        jwt = jwtUtil.generateToken(userDetails);
-
         if (validationResult.getStatusCode().isSameCodeAs(HttpStatus.OK)) {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
+
+            jwt = jwtUtil.generateToken(userDetails);
+
             validationResult = new ResponseEntity<>(new LoginResponse(
                     true,
                     "Logged in successfully",
