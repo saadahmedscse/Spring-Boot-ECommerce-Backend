@@ -16,15 +16,15 @@ public class ValidatorUtil {
     private AuthRepository authRepository;
 
     public ResponseEntity<?> isSignUpRequestValid(SignUpRequest req) {
-        if (req.getFirstName() == null) {
+        if (req.getFirstName() == null || req.getFirstName().isBlank()) {
             return createErrorResponse("First name is required");
         }
 
-        if (req.getLastName() == null) {
+        if (req.getLastName() == null || req.getLastName().isBlank()) {
             return createErrorResponse("Last name is required");
         }
 
-        if (req.getEmail() == null) {
+        if (req.getEmail() == null || req.getEmail().isBlank()) {
             return createErrorResponse("Email is required");
         }
 
@@ -32,11 +32,11 @@ public class ValidatorUtil {
             return createErrorResponse("Email already exist");
         }
 
-        if (req.getPassword() == null) {
+        if (req.getPassword() == null || req.getPassword().isBlank()) {
             return createErrorResponse("Password is required");
         }
 
-        if (req.getConfirmPassword() == null) {
+        if (req.getConfirmPassword() == null || req.getConfirmPassword().isBlank()) {
             return createErrorResponse("Confirm Password is required");
         }
 
@@ -52,10 +52,10 @@ public class ValidatorUtil {
     }
 
     public ResponseEntity<?> isLoginRequestValid(LoginRequest req) {
-        if (req.getEmail() == null) {
+        if (req.getEmail() == null || req.getEmail().isBlank()) {
             return createErrorResponse("Email is required");
         }
-        if (req.getPassword() == null) {
+        if (req.getPassword() == null || req.getPassword().isBlank()) {
             return createErrorResponse("Password is required");
         }
 
