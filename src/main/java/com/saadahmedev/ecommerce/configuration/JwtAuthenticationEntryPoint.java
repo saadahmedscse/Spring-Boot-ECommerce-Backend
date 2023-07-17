@@ -21,7 +21,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
       {
          "status": %d,
          "title": "%s",
-         "detail": "%s"
+         "message": "%s"
       }
       """,
                 HttpStatus.UNAUTHORIZED.value(),
