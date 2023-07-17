@@ -3,6 +3,7 @@ package com.saadahmedev.ecommerce.service.auth;
 import com.saadahmedev.ecommerce.dto.auth.LoginRequest;
 import com.saadahmedev.ecommerce.dto.auth.LoginResponse;
 import com.saadahmedev.ecommerce.dto.auth.SignUpRequest;
+import com.saadahmedev.ecommerce.dto.common.ApiResponse;
 import com.saadahmedev.ecommerce.entity.TokenData;
 import com.saadahmedev.ecommerce.entity.User;
 import com.saadahmedev.ecommerce.repository.auth.AuthRepository;
@@ -10,6 +11,7 @@ import com.saadahmedev.ecommerce.repository.auth.TokenRepository;
 import com.saadahmedev.ecommerce.service.jwt.UserDetailsServiceImpl;
 import com.saadahmedev.ecommerce.util.JwtUtil;
 import com.saadahmedev.ecommerce.util.ValidatorUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,7 +84,7 @@ public class AuthServiceImpl implements AuthService {
             ), HttpStatus.OK);
 
             //Save token to database;
-            saveToken(new TokenData(loginRequest.getEmail(), jwt));
+            saveToken(new TokenData(jwt));
         }
 
         return validationResult;
@@ -91,5 +93,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void saveToken(TokenData tokenData) {
         tokenRepository.save(tokenData);
+    }
+
+    @Override
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        tokenRepository.deleteById(token);
+        return new ResponseEntity<>(new ApiResponse(true, "Logged out successfully"), HttpStatus.OK);
     }
 }
