@@ -40,4 +40,14 @@ public class ProductServiceImpl implements ProductService {
 
         return new ResponseEntity<>(new ApiResponse(true, "Product added successfully"), HttpStatus.CREATED);
     }
+
+    @Override
+    public ResponseEntity<?> getProducts() {
+        return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> searchProducts(String searchText) {
+        return new ResponseEntity<>(productRepository.searchProductsByWords(searchText), HttpStatus.OK);
+    }
 }

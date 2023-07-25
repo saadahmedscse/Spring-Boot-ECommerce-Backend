@@ -8,4 +8,8 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
 
     ResponseEntity<?> createProduct(ProductRequest productRequest);
+
+    ResponseEntity<?> getProducts();
+
+    ResponseEntity<?> searchProducts(String searchText);
 }

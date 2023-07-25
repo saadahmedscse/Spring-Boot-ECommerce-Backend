@@ -19,6 +19,7 @@ public class Product {
     private String title;
     private double price;
     private String category;
+    @Column(length = 5000)
     private String description;
     private String image;
     @OneToOne
