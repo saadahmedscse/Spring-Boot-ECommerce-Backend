@@ -3,7 +3,6 @@ package com.saadahmedev.ecommerce.controller.product;
 import com.saadahmedev.ecommerce.dto.product.ProductRequest;
 import com.saadahmedev.ecommerce.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
