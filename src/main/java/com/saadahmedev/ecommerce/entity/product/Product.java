@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,11 +19,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-    private double price;
-    private String category;
-    @Column(length = 5000)
     private String description;
-    private String image;
-    @OneToOne
-    private Rating rating;
+    private int price;
+    private double discountPercentage;
+    private double rating;
+    private int stock;
+    private String brand;
+    private String category;
+    private String thumbnail;
+    @ElementCollection
+    private List<String> images;
 }
